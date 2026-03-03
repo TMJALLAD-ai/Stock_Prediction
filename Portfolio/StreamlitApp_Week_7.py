@@ -33,7 +33,7 @@ if project_root not in sys.path:
 from src.feature_utils import extract_features_pair
 
 # Access the secrets
-aws_id = st.secrets["aws_credentials"]["AWS_ACCESS_KEY_ID"]
+aws_id = st.secrets["aws_credentials"]["AWS_ACCESS_KEY"]
 aws_secret = st.secrets["aws_credentials"]["AWS_SECRET_ACCESS_KEY"]
 aws_token = st.secrets["aws_credentials"]["AWS_SESSION_TOKEN"]
 aws_bucket = st.secrets["aws_credentials"]["AWS_BUCKET"]
@@ -160,6 +160,7 @@ if submitted:
         display_explanation(input_df,session, aws_bucket)
     else:
         st.error(res)
+
 
 
 
