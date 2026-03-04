@@ -116,9 +116,9 @@ def display_explanation(input_df, session, aws_bucket):
     
     best_pipeline = load_pipeline(session, aws_bucket, 'sklearn-pipeline-deployment')
     preprocessing_pipeline = Pipeline(steps=best_pipeline.steps[:-2])
-    input_df_transformed = preprocessing_pipeline.transform(X_test)
+    input_df_transformed = preprocessing_pipeline.transform(input_df)
     feature_names = best_pipeline[1:4].get_feature_names_out()
-    input_df_transformed = pd.DataFrame(X_test_transformed, columns=feature_names)
+    input_df_transformed = pd.DataFrame(input_df_transformed, columns=feature_names)
     shap_values = explainer(input_df_transformed)
     #shap_values = explainer(input_df_transformed)
     st.subheader("🔍 Decision Transparency (SHAP)")
@@ -160,6 +160,7 @@ if submitted:
         display_explanation(input_df,session, aws_bucket)
     else:
         st.error(res)
+
 
 
 
