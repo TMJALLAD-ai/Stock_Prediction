@@ -126,7 +126,7 @@ def display_explanation(input_df, session, aws_bucket):
     preprocessing_pipeline = Pipeline(steps=full_pipeline.steps[:-2])
     input_df_transformed = preprocessing_pipeline.transform(input_df)
     shap_values = explainer(input_df_transformed)
-    feature_names = full_pipeline[1:4].get_feature_names_out()
+    feature_names = full_pipeline[1:5].get_feature_names_out()
 
     exp = shap.Explanation(
         values=shap_values[0, :, 0],       # The matrix of SHAP values
