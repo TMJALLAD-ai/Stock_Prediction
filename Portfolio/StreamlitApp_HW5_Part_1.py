@@ -1,3 +1,4 @@
+import json
 import os, sys, warnings
 import numpy as np
 import pandas as pd
@@ -115,18 +116,18 @@ def display_explanation(input_df, session, aws_bucket):
     
     dataset = pd.read_csv(r'./SP500Data.csv',index_col=0)
     random = 'IBM'
-    random_price = json.loads(request_body)[random]
+    random_price = user_inputs['IBM']
     closest_date = (dataset[random] - float(random_price)).abs().idxmin()
 
     return_period = 5
 
-    X = np.log(dataset.drop([random],axis=1)).diff(return_period)
+    X = np.log(dataset.drop(['GOOG'],axis=1)).diff(return_period)
     X = np.exp(X).cumsum()
     X.columns = [name + "_CR_Cum" for name in X.columns]
 
-    input_df = x.loc[[closest_date]]
+    input_df = X.loc[[closest_date]]
 
-    best_pipeline = load_pipeline(session, aws_bucket, 'sk_learn-pipeline-deployment')
+    best_pipeline = load_pipeline(session, aws_bucket, 'sklearn-pipeline-deployment')
 
     preprocessing_pipeline = Pipeline(steps=best_pipeline.steps[0:2])
     input_df_transformed = preprocessing_pipeline.transform(input_df)
