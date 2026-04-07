@@ -131,7 +131,7 @@ def display_explanation(input_df, session, aws_bucket):
 
     input_df_transformed = np.array(preprocessing_pipeline.transform(input_df))
     if input_df_transformed.ndim == 1:
-    input_df_transformed = input_df_transformed.reshape(1, -1)
+        input_df_transformed = input_df_transformed.reshape(1, -1)
     n_cols = input_df_transformed.shape[1]
     feature_names = [f"PC{i+1}" for i in range(n_cols)]
     input_df_transformed = pd.DataFrame(input_df_transformed, columns=feature_names)
